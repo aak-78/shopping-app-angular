@@ -1,0 +1,10 @@
+.selected {
+  text-decoration-line: underline;
+  text-decoration-color: red;
+  color: red;
+}
+
+.inactive {
+  color: blueviolet;
+  text-decoration-line: none;
+}

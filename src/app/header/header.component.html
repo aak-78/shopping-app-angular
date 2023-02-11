@@ -1,0 +1,45 @@
+<ul class="navbar navbar-nav">
+  <div class="container-fluid justify-content-start align-items-center">
+    <li class="">
+      <a class="navbar-brand" style="cursor: pointer">Recipe Book</a>
+    </li>
+    <li class="nav-item px-2" style="cursor: pointer">
+      <a
+        class="nav-link"
+        routerLink="/recipes"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Recipes</a
+      >
+    </li>
+    <li class="nav-item px-2">
+      <a
+        class="nav-link"
+        routerLink="/shopping-list"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Shopping List</a
+      >
+    </li>
+    <li class="nav-item px-2 ms-auto">
+      <a
+        class="nav-link bg-primary text-white rounded-2 py-2 px-3"
+        routerLink="/auth"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Login | Sign Up</a
+      >
+    </li>
+    <li ngbDropdown class="nav-item">
+      <a href (click)="(false)" class="nav-link" ngbDropdownToggle>Manage</a>
+      <div ngbDropdownMenu class="" style="position: absolute; left: -110px">
+        <button ngbDropdownItem (click)="onPutAllRecipes()">
+          Save recipes
+        </button>
+        <button ngbDropdownItem (click)="onGetAllRecipes()">
+          Load recipes
+        </button>
+      </div>
+    </li>
+  </div>
+</ul>

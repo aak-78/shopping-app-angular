@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-12 col-md-6 mx-auto">
+    <form action="" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email" class="form-label">E-Mail</label>
+        <input
+          type="email"
+          formControlName="email"
+          id="email"
+          class="form-control mb-2"
+          (keyup)="onCheckEmail(getValue($event))"
+        />
+        <p class="alert-danger alert" *ngIf="emailMessage">
+          {{ emailMessage }}
+        </p>
+      </div>
+      <div class="form-group mt-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
+        <p
+          class="alert-danger alert mt-2"
+          *ngIf="password.invalid && password.dirty"
+        >
+          <!-- authForm.controls.password.invalid &&
+            authForm.controls.password.dirty -->
+          Too short password. Enter more symbols:
+          {{ 6 - authForm.controls.password.value.toString().length }}
+        </p>
+      </div>
+
+      <!-- <div class="my-3">
+        <p class="my-3" *ngIf="!message">Enter your data</p>
+        <p class="my-3" *ngIf="message">{{ message }}</p>
+      </div> -->
+      <div class="mt-5" *ngIf="!isLoading">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!authForm.valid || !emailNameIsValid"
+          *ngIf="!isLoginMode"
+        >
+          Sign Up
+        </button>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="authForm.invalid"
+          *ngIf="isLoginMode"
+        >
+          Login
+        </button>
+        |
+        <button class="btn btn-primary" type="button" (click)="onChangeMode()">
+          Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+        </button>
+      </div>
+      <loading-spinner
+        class="mx-auto inline"
+        *ngIf="isLoading"
+      ></loading-spinner>
+    </form>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+      <h2>Something went wrong. Error</h2>
+      <p>
+        {{ errorMessage }}
+      </p>
+    </div>
+  </div>
+</div>

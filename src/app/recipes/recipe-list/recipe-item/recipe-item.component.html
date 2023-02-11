@@ -1,0 +1,21 @@
+<div class="list-item">
+  <a
+    class="list-group-item clearfix bg-opacity-10 p-2 my-2 rounded"
+    style="cursor: pointer"
+    [routerLink]="[index]"
+    routerLinkActive="active"
+  >
+    <div class="float-start">
+      <h4 class="list-group-item-heading">{{ recipeItem.name }}</h4>
+      <p class="list-group-item-text">{{ recipeItem.description }}</p>
+    </div>
+    <span class="float-end">
+      <img
+        [src]="recipeItem.imagePath"
+        alt="{{ recipeItem.name }}"
+        style="max-height: 100px"
+        class="img-fluid rounded"
+      />
+    </span>
+  </a>
+</div>
