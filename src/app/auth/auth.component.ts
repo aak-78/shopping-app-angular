@@ -59,7 +59,7 @@ export class AuthComponent implements OnDestroy, OnInit {
     // this.authForm.reset();
     this.authService.emailMessage$.next(null);
     this.authService.passwordMessage$.next(null);
-    this.authService.errorMessage$.next(null);
+    // this.authService.errorMessage$.next(null);
     if (!this.isLoading) this.onCheckEmail(this.authForm.controls.email.value);
   }
 
@@ -106,8 +106,11 @@ export class AuthComponent implements OnDestroy, OnInit {
     this.subscription = this.authService.passwordMessage$.subscribe(
       (value) => (this.passwordMessage = value)
     );
-    this.subscription = this.authService.errorMessage$.subscribe(
-      (value) => (this.errorMessage = value)
+    this.subscriptionErrorMessage = this.authService.errorMessage$.subscribe(
+      (value) => {
+        this.errorMessage = value;
+        console.log('NgInit ', this.errorMessage);
+      }
     );
     this.subscription = this.authService.emailNameIsValid$.subscribe(
       (value) => {

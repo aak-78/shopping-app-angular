@@ -27,8 +27,14 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | UrlTree {
     if (this.authService.userAutorized) {
       return true;
+    } else {
+      this.authService.errorMessage$.next(
+        'Please autorize to rich Recipes and Shopping List'
+      );
+      console.log('AuthGuard redirect');
+      this.authService.errorMessage$.subscribe((v) => console.log(v));
+      return this.router.parseUrl('/auth');
     }
-    return this.router.parseUrl('/auth');
   }
 
   canActivateChild(

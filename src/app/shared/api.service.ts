@@ -70,17 +70,3 @@ export class ApiService {
     );
   }
 }
-
-// {
-//     "error": {
-//         "code": 400,
-//         "message": "EMAIL_EXISTS",
-//         "errors": [
-//             {
-//                 "message": "EMAIL_EXISTS",
-//                 "domain": "global",
-//                 "reason": "invalid"
-//             }
-//         ]
-//     }
-// }

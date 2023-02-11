@@ -47,9 +47,9 @@ interface CheckEmailResponse {
 })
 export class AuthService implements OnInit, OnDestroy {
   // Messages
-  emailMessage$ = new Subject<string | null>();
-  passwordMessage$ = new Subject<string | null>();
-  errorMessage$ = new Subject<string | null>();
+  emailMessage$ = new Subject<string>();
+  passwordMessage$ = new Subject<string>();
+  errorMessage$ = new Subject<string>();
 
   emailNameIsValid$ = new Subject<boolean>(); // Check is email already taken in signup mode
   userAutorized: boolean; // Check is user authorized and can Navigate
@@ -72,10 +72,11 @@ export class AuthService implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.emailMessage$.next(null);
     this.passwordMessage$.next(null);
-    this.errorMessage$.next(null);
+    // this.errorMessage$.next(null);
     this.emailNameIsValid$.next(false);
     this.isLoading$.next(false);
     this.userAutorized = false;
+    this.errorMessage$.subscribe((v) => console.log('V: ', v));
   }
 
   signupUser(email: string, password: string) {

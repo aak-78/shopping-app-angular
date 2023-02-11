@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
+import { AuthService } from './auth/auth.service';
 import { BasicHightlightDirective } from './directives/basic-hightlight/basic-hightlight.directive';
 import { BetterHightlightDirective } from './directives/better-hightlight/better-hightlight.directive';
 import { BetterHightlight2Directive } from './directives/better-hightlight/better-hightlight2.directive';
@@ -41,7 +42,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinner,
-    Gear
+    Gear,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ShoppingListService, RecipeService],
+  providers: [ShoppingListService, RecipeService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
