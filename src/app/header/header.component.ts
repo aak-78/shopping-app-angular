@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { AuthComponent } from '../auth/auth.component';
 import { AuthService } from '../auth/auth.service';
 import { ApiService } from '../shared/api.service';
 
@@ -13,7 +14,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subs: Subscription;
   constructor(
     private apiService: ApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    private authComponent: AuthComponent
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   isLogout() {
+    this.authComponent.authForm.reset();
     this.authService.logout();
   }
 }

@@ -1,8 +1,13 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, first, map, tap } from 'rxjs/operators';
 
+import { AuthService } from '../auth/auth.service';
 import { Recipe } from '../recipes/recipe-list/recipe.model';
 import { RecipeService } from '../recipes/recipe.service';
 
@@ -17,29 +22,37 @@ export class ApiService {
   signupUrl =
     'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCfq4yG5uQguBa2Du-mSEa4_C03ynmh0qs';
   key = 'AIzaSyCfq4yG5uQguBa2Du-mSEa4_C03ynmh0qs';
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+
+  constructor(
+    private http: HttpClient,
+    private recipeService: RecipeService,
+    private authService: AuthService
+  ) {}
+
   errorMessage = new Subject<HttpErrorResponse>();
   response = {};
 
   getAllRecipes() {
-    return this.http
-      .get<Recipe[]>(this.baseUrl)
-      .pipe(
-        map((response) => {
-          return response.map((element) => {
-            return {
-              ...element,
-              ingredients: element.ingredients ? element.ingredients : [],
-            };
-          });
-        })
-      )
-      .pipe(catchError((err) => this.handleError(err)))
-      .pipe(
-        tap((response: Recipe[]) => {
-          return this.recipeService.updateAllRecipes(response);
-        })
-      );
+    return this.authService.user$.pipe(
+      first(),
+      exhaustMap((user) => {
+        return this.http.get<Recipe[]>(this.baseUrl, {
+          params: new HttpParams().set('auth', user.token),
+        });
+      }),
+      map((response) => {
+        return response.map((element) => {
+          return {
+            ...element,
+            ingredients: element.ingredients ? element.ingredients : [],
+          };
+        });
+      }),
+      tap((response: Recipe[]) => {
+        return this.recipeService.updateAllRecipes(response);
+      }),
+      catchError((err) => this.handleError(err))
+    );
   }
 
   // this.recipeService.updateAllRecipes(response)

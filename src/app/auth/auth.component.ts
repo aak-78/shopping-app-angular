@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   debounceTime,
@@ -11,6 +11,9 @@ import {
 
 import { AuthService } from './auth.service';
 
+@Injectable({
+  providedIn: 'root',
+})
 @Component({
   selector: 'app-auth',
   templateUrl: 'auth.component.html',
@@ -122,7 +125,6 @@ export class AuthComponent implements OnDestroy, OnInit {
     );
     this.subscription = this.authService.errorMessage$.subscribe((value) => {
       this.errorMessage = value;
-      console.log('NgInit ', this.errorMessage);
     });
     this.subscription = this.authService.emailNameIsValid$.subscribe(
       (value) => {

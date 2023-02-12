@@ -5,7 +5,14 @@ import {
 } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Subject, Subscription, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  Subject,
+  Subscription,
+  tap,
+  throwError,
+} from 'rxjs';
 
 import { User } from './user.model';
 
@@ -52,9 +59,9 @@ export class AuthService implements OnInit, OnDestroy {
   errorMessage$ = new Subject<string>();
 
   emailNameIsValid$ = new Subject<boolean>(); // Check is email already taken in signup mode
-  userAuthorized$ = new Subject<boolean>(); // Check is user authorized and can Navigate
+  userAuthorized$ = new BehaviorSubject<boolean>(false); // Check is user authorized and can Navigate
 
-  user$ = new Subject<User>();
+  user$ = new BehaviorSubject<User>(null);
 
   key = 'AIzaSyCfq4yG5uQguBa2Du-mSEa4_C03ynmh0qs';
 
@@ -136,14 +143,20 @@ export class AuthService implements OnInit, OnDestroy {
 
         this.isLoading$.next(false);
         this.userAuthorized$.next(true);
+        this.handleUserAuth(response);
+        this.clearAllMessages();
         this.router.navigate(['/recipes']);
       });
   }
 
-  logout() {
+  clearAllMessages() {
     this.emailMessage$.next(null);
     this.passwordMessage$.next(null);
     this.errorMessage$.next(null);
+  }
+
+  logout() {
+    this.clearAllMessages();
     this.emailNameIsValid$.next(false);
     this.isLoading$.next(false);
     this.userAuthorized$.next(false);
