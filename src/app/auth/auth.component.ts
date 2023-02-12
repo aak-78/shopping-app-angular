@@ -44,9 +44,9 @@ export class AuthComponent implements OnDestroy, OnInit {
 
   //Subscriptions
   subscription: Subscription;
-  subscriptionEmail: Subscription;
-  subscriptionPassword: Subscription;
-  subscriptionErrorMessage: Subscription;
+  // subscriptionEmail: Subscription;
+  // subscriptionPassword: Subscription;
+  // subscriptionErrorMessage: Subscription;
 
   // Other
   checkEmail$!: Observable<{}>;
@@ -88,6 +88,7 @@ export class AuthComponent implements OnDestroy, OnInit {
   onCheckEmail(searchString: string) {
     this.authService.emailMessage$.next(null);
     this.authService.emailNameIsValid$.next(false);
+    this.authService.errorMessage$.next(null);
     if (this.authForm.controls.email.invalid) {
       this.authService.emailMessage$.next('Please enter valid email');
     } else {
@@ -96,6 +97,19 @@ export class AuthComponent implements OnDestroy, OnInit {
       }
     }
     // console.log(serachString);
+  }
+  onCheckPassword(searchString: string) {
+    if (
+      this.authForm.controls.password.invalid &&
+      this.authForm.controls.password.dirty
+    ) {
+      let num = Number(this.authForm.controls.password.value.toString().length);
+      let mess = 'Please enter at leaste 6 symbols ( ' + num + ' )';
+      this.authService.passwordMessage$.next(mess);
+      this.authService.errorMessage$.next(null);
+    } else {
+      this.authService.passwordMessage$.next(null);
+    }
   }
 
   ngOnInit() {
@@ -106,12 +120,10 @@ export class AuthComponent implements OnDestroy, OnInit {
     this.subscription = this.authService.passwordMessage$.subscribe(
       (value) => (this.passwordMessage = value)
     );
-    this.subscriptionErrorMessage = this.authService.errorMessage$.subscribe(
-      (value) => {
-        this.errorMessage = value;
-        console.log('NgInit ', this.errorMessage);
-      }
-    );
+    this.subscription = this.authService.errorMessage$.subscribe((value) => {
+      this.errorMessage = value;
+      console.log('NgInit ', this.errorMessage);
+    });
     this.subscription = this.authService.emailNameIsValid$.subscribe(
       (value) => {
         this.emailNameIsValid = value;

@@ -140,7 +140,19 @@ export class AuthService implements OnInit, OnDestroy {
       });
   }
 
+  logout() {
+    this.emailMessage$.next(null);
+    this.passwordMessage$.next(null);
+    this.errorMessage$.next(null);
+    this.emailNameIsValid$.next(false);
+    this.isLoading$.next(false);
+    this.userAuthorized$.next(false);
+    this.user$.complete();
+    this.router.navigate(['/auth']);
+  }
+
   checkEmail(email: string) {
+    this.errorMessage$.next(null);
     this.emailNameIsValid$.next(false);
     this.subscription = this.http
       .post(
@@ -193,6 +205,7 @@ export class AuthService implements OnInit, OnDestroy {
     switch (error.error.error.message) {
       case 'EMAIL_NOT_FOUND': {
         this.emailMessage$.next('Email not found');
+        this.errorMessage$.next(null);
         break;
       }
       case 'INVALID_PASSWORD': {
@@ -201,6 +214,7 @@ export class AuthService implements OnInit, OnDestroy {
       }
       case 'INVALID_EMAIL': {
         this.emailMessage$.next('Invalid emeil');
+        this.errorMessage$.next(null);
         break;
       }
       case 'USER_DISABLED': {

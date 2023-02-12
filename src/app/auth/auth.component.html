@@ -22,15 +22,16 @@
           class="form-control"
           id="password"
           formControlName="password"
+          (keyup)="onCheckPassword(getValue($event))"
         />
-        <p
-          class="alert-danger alert mt-2"
-          *ngIf="password.invalid && password.dirty"
-        >
-          <!-- authForm.controls.password.invalid &&
-            authForm.controls.password.dirty -->
-          Too short password. Enter more symbols:
-          {{ 6 - authForm.controls.password.value.toString().length }}
+        <!-- authForm.controls.password.invalid &&
+          authForm.controls.password.dirty -->
+
+        <!-- LAST working - move in auth.component.ts -->
+        <!-- Too short password. Enter more symbols:
+        {{ 6 - authForm.controls.password.value.toString().length }} -->
+        <p class="alert-danger alert mt-2" *ngIf="passwordMessage">
+          {{ passwordMessage }}
         </p>
       </div>
 

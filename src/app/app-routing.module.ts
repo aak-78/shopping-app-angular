@@ -13,13 +13,15 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/auth',
+    redirectTo: '/recipes',
     pathMatch: 'full',
   },
   {
     path: 'recipes',
     component: RecipesComponent,
     resolve: [RecipeResolverService],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       { path: '', component: RecipeStartComponent },
       { path: 'new', component: RecipeEditComponent, resolve: null },

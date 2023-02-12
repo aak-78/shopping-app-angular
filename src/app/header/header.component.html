@@ -36,6 +36,7 @@
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
         *ngIf="userAuthorized"
+        (click)="isLogout()"
         >Logout</a
       >
     </li>
