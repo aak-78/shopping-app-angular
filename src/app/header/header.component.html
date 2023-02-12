@@ -27,7 +27,16 @@
         routerLink="/auth"
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
+        *ngIf="!userAuthorized"
         >Login | Sign Up</a
+      >
+      <a
+        class="nav-link bg-primary text-white rounded-2 py-2 px-3"
+        routerLink="/auth"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        *ngIf="userAuthorized"
+        >Logout</a
       >
     </li>
     <li ngbDropdown class="nav-item">

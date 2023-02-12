@@ -52,7 +52,7 @@ export class AuthService implements OnInit, OnDestroy {
   errorMessage$ = new Subject<string>();
 
   emailNameIsValid$ = new Subject<boolean>(); // Check is email already taken in signup mode
-  userAutorized: boolean; // Check is user authorized and can Navigate
+  userAuthorized$ = new Subject<boolean>(); // Check is user authorized and can Navigate
 
   user$ = new Subject<User>();
 
@@ -72,11 +72,10 @@ export class AuthService implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.emailMessage$.next(null);
     this.passwordMessage$.next(null);
-    // this.errorMessage$.next(null);
+    this.errorMessage$.next(null);
     this.emailNameIsValid$.next(false);
     this.isLoading$.next(false);
-    this.userAutorized = false;
-    this.errorMessage$.subscribe((v) => console.log('V: ', v));
+    this.userAuthorized$.next(false);
   }
 
   signupUser(email: string, password: string) {
@@ -105,7 +104,7 @@ export class AuthService implements OnInit, OnDestroy {
       .subscribe((response) => {
         console.log('Suscribe: ', response);
         this.isLoading$.next(false);
-        this.userAutorized = true;
+        this.userAuthorized$.next(true);
         this.router.navigate(['/recipes']);
       });
   }
@@ -136,7 +135,7 @@ export class AuthService implements OnInit, OnDestroy {
         // console.log('Suscribe: ', response);
 
         this.isLoading$.next(false);
-        this.userAutorized = true;
+        this.userAuthorized$.next(true);
         this.router.navigate(['/recipes']);
       });
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -7,15 +7,29 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AuthGuard
+  implements CanActivate, CanActivateChild, OnInit, OnDestroy
+{
+  subs: Subscription;
+  userActivated: boolean;
+
   constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit(): void {
+    this.subs = this.authService.userAuthorized$.subscribe((response) => {
+      this.userActivated = response;
+      console.log('AuthGuard userActivated:', this.userActivated);
+    });
+  }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe;
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,7 +39,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.userAutorized) {
+    this.subs = this.authService.userAuthorized$.subscribe((response) => {
+      this.userActivated = response;
+      console.log('AuthGuard userActivated:', this.userActivated);
+    });
+    if (this.userActivated) {
       return true;
     } else {
       this.authService.errorMessage$.next(
