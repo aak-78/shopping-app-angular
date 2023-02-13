@@ -55,7 +55,9 @@ export class AuthComponent implements OnDestroy, OnInit {
   checkEmail$!: Observable<{}>;
   private searchText$ = new Subject<string>();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.authService.autoLogin();
+  }
 
   onChangeMode() {
     this.isLoginMode = !this.isLoginMode;

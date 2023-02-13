@@ -1,18 +1,7 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  catchError,
-  Subject,
-  Subscription,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, catchError, Subject, Subscription, tap, throwError } from 'rxjs';
 
 import { User } from './user.model';
 
@@ -149,6 +138,31 @@ export class AuthService implements OnInit, OnDestroy {
       });
   }
 
+  autoLogin() {
+    console.log('AutoLogin');
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: Date;
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) return;
+    console.log(userData);
+
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+    console.log('Token:', loadedUser.token);
+    if (loadedUser.token) {
+      this.user$.next(loadedUser);
+      this.userAuthorized$.next(true);
+      this.router.navigate(['/recipes']);
+    }
+  }
+
   clearAllMessages() {
     this.emailMessage$.next(null);
     this.passwordMessage$.next(null);
@@ -161,6 +175,7 @@ export class AuthService implements OnInit, OnDestroy {
     this.isLoading$.next(false);
     this.userAuthorized$.next(false);
     this.user$.complete();
+    localStorage.removeItem('userData');
     this.router.navigate(['/auth']);
   }
 
@@ -209,7 +224,7 @@ export class AuthService implements OnInit, OnDestroy {
       responseData.idToken,
       expirationTime
     );
-    // console.log(user);
+    localStorage.setItem('userData', JSON.stringify(user));
     this.user$.next(user);
   }
 

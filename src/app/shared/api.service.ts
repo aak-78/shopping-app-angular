@@ -1,11 +1,7 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
-import { catchError, exhaustMap, first, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
 import { Recipe } from '../recipes/recipe-list/recipe.model';
@@ -33,13 +29,7 @@ export class ApiService {
   response = {};
 
   getAllRecipes() {
-    return this.authService.user$.pipe(
-      first(),
-      exhaustMap((user) => {
-        return this.http.get<Recipe[]>(this.baseUrl, {
-          params: new HttpParams().set('auth', user.token),
-        });
-      }),
+    return this.http.get<Recipe[]>(this.baseUrl).pipe(
       map((response) => {
         return response.map((element) => {
           return {

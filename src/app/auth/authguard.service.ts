@@ -23,10 +23,8 @@ export class AuthGuard
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('Start NgOnInit in AuthGuard');
     this.subs = this.authService.userAuthorized$.subscribe((response) => {
       this.userActivated = response;
-      console.log('AuthGuard userActivated in OnInit:', this.userActivated);
     });
   }
 
