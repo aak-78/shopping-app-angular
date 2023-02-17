@@ -66,11 +66,16 @@
         *ngIf="isLoading"
       ></loading-spinner>
     </form>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+    <!-- <div *ngIf="errorMessage | async" class="alert alert-danger mt-4">
       <h2>Something went wrong. Error</h2>
       <p>
-        {{ errorMessage }}
+        {{ errorMessage | async }}
       </p>
-    </div>
+    </div> -->
+    <app-alert
+      *ngIf="errorMessage$ | async"
+      [alertMessage]="errorMessage$ | async"
+    >
+    </app-alert>
   </div>
 </div>

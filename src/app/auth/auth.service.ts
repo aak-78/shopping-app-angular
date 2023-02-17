@@ -1,9 +1,21 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, Subject, Subscription, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  Subject,
+  Subscription,
+  tap,
+  throwError,
+} from 'rxjs';
 
 import { User } from './user.model';
+import { Observable } from 'rxjs';
 
 // Error response
 interface Error {
@@ -45,7 +57,8 @@ export class AuthService implements OnInit, OnDestroy {
   // Messages
   emailMessage$ = new Subject<string>();
   passwordMessage$ = new Subject<string>();
-  errorMessage$ = new Subject<string>();
+  errorMessage$ = new BehaviorSubject<string>(null);
+  errorMessage2$ = new Observable<string>();
 
   emailNameIsValid$ = new Subject<boolean>(); // Check is email already taken in signup mode
   userAuthorized$ = new BehaviorSubject<boolean>(false); // Check is user authorized and can Navigate
@@ -76,6 +89,7 @@ export class AuthService implements OnInit, OnDestroy {
 
   signupUser(email: string, password: string) {
     this.isLoading$.next(true);
+    this.clearAllMessages();
     this.subscription = this.http
       .post<Response>(
         this.signupUrl,
@@ -98,7 +112,6 @@ export class AuthService implements OnInit, OnDestroy {
         })
       )
       .subscribe((response) => {
-        console.log('Suscribe: ', response);
         this.isLoading$.next(false);
         this.userAuthorized$.next(true);
         this.router.navigate(['/recipes']);
@@ -107,7 +120,7 @@ export class AuthService implements OnInit, OnDestroy {
 
   login(email: string, password: string) {
     this.isLoading$.next(true);
-    this.user$.subscribe((v) => console.log(v));
+    this.clearAllMessages();
     this.http
       .post<Response>(
         this.loginUrl,
@@ -128,8 +141,6 @@ export class AuthService implements OnInit, OnDestroy {
         })
       )
       .subscribe((response) => {
-        // console.log('Suscribe: ', response);
-
         this.isLoading$.next(false);
         this.userAuthorized$.next(true);
         this.handleUserAuth(response);
@@ -139,7 +150,6 @@ export class AuthService implements OnInit, OnDestroy {
   }
 
   autoLogin() {
-    console.log('AutoLogin');
     const userData: {
       email: string;
       id: string;
@@ -147,7 +157,6 @@ export class AuthService implements OnInit, OnDestroy {
       _tokenExpirationDate: Date;
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData) return;
-    console.log(userData);
 
     const loadedUser = new User(
       userData.email,
@@ -155,7 +164,6 @@ export class AuthService implements OnInit, OnDestroy {
       userData._token,
       new Date(userData._tokenExpirationDate)
     );
-    console.log('Token:', loadedUser.token);
     if (loadedUser.token) {
       this.user$.next(loadedUser);
       this.userAuthorized$.next(true);
@@ -194,20 +202,15 @@ export class AuthService implements OnInit, OnDestroy {
       .pipe(
         catchError((err) => {
           return this.handleError(err);
-        }),
-
-        tap((response: CheckEmailResponse) => {
-          console.log('Check Email - in Pipe: ', response);
         })
       )
-      .subscribe((response) => {
+      .subscribe((response: CheckEmailResponse) => {
         if (response.registered) {
           this.emailMessage$.next(
             'Email allready taken. Pelease select different email. '
           );
         } else {
           this.emailNameIsValid$.next(true);
-          // console.log('Check Email - in Suscribe: ', response.registered);
         }
         return response;
       });
@@ -229,7 +232,6 @@ export class AuthService implements OnInit, OnDestroy {
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.log('error in Service - handle Erorr', error);
     switch (error.error.error.message) {
       case 'EMAIL_NOT_FOUND': {
         this.emailMessage$.next('Email not found');
@@ -248,6 +250,12 @@ export class AuthService implements OnInit, OnDestroy {
       case 'USER_DISABLED': {
         this.errorMessage$.next(
           'The user account has been disabled by an administrator'
+        );
+        break;
+      }
+      case 'TOO_MANY_ATTEMPTS_TRY_LATER': {
+        this.errorMessage$.next(
+          'Too many attempts with invalid Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.'
         );
         break;
       }

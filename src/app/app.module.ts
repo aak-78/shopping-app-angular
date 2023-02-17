@@ -24,6 +24,7 @@ import { LoadingSpinner } from './shared/loading-spinner/loading-spinner.compone
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
+import { AlertComponent } from './shared/allert/alert.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     AuthComponent,
     LoadingSpinner,
     Gear,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

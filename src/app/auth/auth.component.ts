@@ -26,7 +26,8 @@ export class AuthComponent implements OnDestroy, OnInit {
   emailMessage: string = '';
   passwordMessage: string = '';
   messagestring = '';
-  errorMessage: string = '';
+  // errorMessage: string = '';
+  errorMessage$ = new Observable<string>();
 
   //Error
   error;
@@ -57,6 +58,7 @@ export class AuthComponent implements OnDestroy, OnInit {
 
   constructor(private authService: AuthService) {
     this.authService.autoLogin();
+    this.errorMessage$ = this.authService.errorMessage$;
   }
 
   onChangeMode() {
@@ -75,18 +77,14 @@ export class AuthComponent implements OnDestroy, OnInit {
     const email = this.authForm.controls.email.value;
     const password = this.authForm.controls.password.value;
     if (this.isLoginMode) {
-      console.log(email, password, ' in Auth');
       this.authService.login(email, password);
     } else {
-      console.log(email, password, ' in Auth');
       this.authService.signupUser(email, password);
     }
     // this.authForm.reset();
   }
 
   getValue(event: Event): string {
-    // console.log('getValue: ', (event.target as HTMLInputElement).value);
-    //event['key']
     return (event.target as HTMLInputElement).value;
   }
 
@@ -101,7 +99,6 @@ export class AuthComponent implements OnDestroy, OnInit {
         this.searchText$.next(searchString);
       }
     }
-    // console.log(serachString);
   }
   onCheckPassword(searchString: string) {
     if (
@@ -119,15 +116,17 @@ export class AuthComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     // Subscribe messages from authService
+    console.log('Auth Component NgInit started!');
     this.subscription = this.authService.emailMessage$.subscribe(
       (value) => (this.emailMessage = value)
     );
     this.subscription = this.authService.passwordMessage$.subscribe(
       (value) => (this.passwordMessage = value)
     );
-    this.subscription = this.authService.errorMessage$.subscribe((value) => {
-      this.errorMessage = value;
-    });
+    // this.subscription = this.authService.errorMessage$.subscribe((value) => {
+    //   console.log('Auth Component errorMessage: ', value);
+    //   this.errorMessage = value;
+    // });
     this.subscription = this.authService.emailNameIsValid$.subscribe(
       (value) => {
         this.emailNameIsValid = value;
