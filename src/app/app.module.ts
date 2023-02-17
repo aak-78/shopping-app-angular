@@ -25,6 +25,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AlertComponent } from './shared/allert/alert.component';
+import { AlertDirective } from './shared/allert/alert.directive';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AlertComponent } from './shared/allert/alert.component';
     AuthComponent,
     LoadingSpinner,
     Gear,
-    AlertComponent
+    AlertComponent,
+    AlertDirective
   ],
   imports: [
     BrowserModule,

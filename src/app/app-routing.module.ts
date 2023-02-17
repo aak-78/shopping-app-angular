@@ -13,7 +13,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/recipes',
+    redirectTo: '/auth',
     pathMatch: 'full',
   },
   {

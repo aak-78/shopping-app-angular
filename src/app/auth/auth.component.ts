@@ -1,4 +1,10 @@
-import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   debounceTime,
@@ -10,6 +16,8 @@ import {
 } from 'rxjs';
 
 import { AuthService } from './auth.service';
+import { AlertDirective } from '../shared/allert/alert.directive';
+import { AlertComponent } from '../shared/allert/alert.component';
 
 @Injectable({
   providedIn: 'root',
@@ -28,9 +36,6 @@ export class AuthComponent implements OnDestroy, OnInit {
   messagestring = '';
   // errorMessage: string = '';
   errorMessage$ = new Observable<string>();
-
-  //Error
-  error;
 
   //Form
   authForm = new FormGroup({
@@ -55,6 +60,8 @@ export class AuthComponent implements OnDestroy, OnInit {
   // Other
   checkEmail$!: Observable<{}>;
   private searchText$ = new Subject<string>();
+
+  @ViewChild(AlertDirective, { static: true }) alertHost!: AlertDirective;
 
   constructor(private authService: AuthService) {
     this.authService.autoLogin();
@@ -152,6 +159,12 @@ export class AuthComponent implements OnDestroy, OnInit {
       })
     );
     this.subscription = this.checkEmail$.subscribe();
+
+    this.subscription = this.authService.errorMessage$.subscribe((message) => {
+      if (message) {
+        this.onErrorMessage(message);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -161,5 +174,16 @@ export class AuthComponent implements OnDestroy, OnInit {
   // Get status of Password Form and create new variable to use in HTML template
   get password() {
     return this.authForm.get('password');
+  }
+
+  // Add Dynamic Component - Error Modal window. # Iteration of Error Message
+  onErrorMessage(alertMessage: string) {
+    console.log(this.alertHost.viewContainerRef);
+    console.log(AlertComponent);
+    const viewContainerRef = this.alertHost.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef =
+      viewContainerRef.createComponent<AlertComponent>(AlertComponent);
+    componentRef.instance.alertMessage = alertMessage;
   }
 }

@@ -1,5 +1,8 @@
 <div class="row">
   <div class="col-12 col-md-6 mx-auto">
+    <h4 class="mb-5 text-center">
+      Please Login or Signup to enter in Recipe App
+    </h4>
     <form action="" [formGroup]="authForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email" class="form-label">E-Mail</label>
@@ -66,16 +69,23 @@
         *ngIf="isLoading"
       ></loading-spinner>
     </form>
+
+    <!-- Oll version of error message #1 -->
     <!-- <div *ngIf="errorMessage | async" class="alert alert-danger mt-4">
       <h2>Something went wrong. Error</h2>
       <p>
         {{ errorMessage | async }}
       </p>
     </div> -->
-    <app-alert
+    
+    <!-- Oll version of error message #2 -->
+    <!-- <app-alert
       *ngIf="errorMessage$ | async"
       [alertMessage]="errorMessage$ | async"
     >
-    </app-alert>
+    </app-alert> -->
+
+    <!-- Dynamic Component with Modal Eror window -->
+    <ng-template alertHost></ng-template>
   </div>
 </div>
