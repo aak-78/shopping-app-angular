@@ -1,21 +1,9 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  catchError,
-  Subject,
-  Subscription,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subject, Subscription, tap, throwError } from 'rxjs';
 
 import { User } from './user.model';
-import { Observable } from 'rxjs';
 
 // Error response
 interface Error {
@@ -167,7 +155,6 @@ export class AuthService implements OnInit, OnDestroy {
     if (loadedUser.token) {
       this.user$.next(loadedUser);
       this.userAuthorized$.next(true);
-      this.router.navigate(['/recipes']);
     }
   }
 

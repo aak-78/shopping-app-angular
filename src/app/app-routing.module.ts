@@ -8,16 +8,16 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'recipes',
-    loadChildren: () =>
-      import('./recipes/recipes.module').then((mod) => mod.RecipesModule),
-  },
-  {
     path: 'shopping-list',
     loadChildren: () =>
       import('./shopping-list/shopping-list.module').then(
         (mod) => mod.ShoppingListModule
       ),
+  },
+  {
+    path: 'recipes',
+    loadChildren: () =>
+      import('./recipes/recipes.module').then((mod) => mod.RecipesModule),
   },
   {
     path: 'auth',
