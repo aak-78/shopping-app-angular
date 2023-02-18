@@ -6,6 +6,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="false"
   [ngStyle]="visibility"
+  (click)="close($event)"
 >
   <!-- style="display: block" -->
   <div class="modal-dialog">
@@ -16,7 +17,7 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
-          (click)="close()"
+          (click)="close($event)"
         ></button>
       </div>
       <div class="modal-body text-danger">
@@ -27,7 +28,7 @@
           type="button"
           class="btn btn-secondary"
           data-bs-dismiss="modal"
-          (click)="close()"
+          (click)="close($event)"
         >
           Close
         </button>

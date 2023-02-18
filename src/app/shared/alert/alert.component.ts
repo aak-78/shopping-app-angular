@@ -1,14 +1,16 @@
-import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.css']
+  styleUrls: ['./alert.component.css'],
 })
 export class AlertComponent implements OnChanges {
   @Input() alertMessage: string;
   visibility = { display: 'block' };
-  close() {
+
+  close(event) {
+    event.stopPropagation();
     const bodyRef = document.querySelector('body');
     if (this.visibility.display === 'block') {
       this.visibility.display = 'none';
@@ -19,7 +21,7 @@ export class AlertComponent implements OnChanges {
       this.visibility.display = 'block';
       bodyRef.style.overflow = 'hidden';
       bodyRef.classList.add('modal-open');
-      document.body.classList.add("modal-open");
+      document.body.classList.add('modal-open');
     }
   }
 

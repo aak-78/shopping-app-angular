@@ -15,9 +15,9 @@ import {
   switchMap,
 } from 'rxjs';
 
+import { AlertComponent } from '../shared/alert/alert.component';
+import { AlertDirective } from '../shared/alert/alert.directive';
 import { AuthService } from './auth.service';
-import { AlertDirective } from '../shared/allert/alert.directive';
-import { AlertComponent } from '../shared/allert/alert.component';
 
 @Injectable({
   providedIn: 'root',

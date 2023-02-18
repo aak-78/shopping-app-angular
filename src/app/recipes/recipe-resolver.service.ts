@@ -25,7 +25,7 @@ export class RecipeResolverService implements Resolve<Recipe[]> {
     // Макс добавил privat recipeService и добавил проверку на this.recipeService.recipes === 0 и тогда return getAllRecipes
     // Добавил сам - надо еще добавить проверку на сохранение в CanLeave в Роутинге
     let recipes: Recipe[] = this.recipeService.getRecipes();
-    console.log('Recipe in resolver: ', recipes);
+    console.log('Recipes in resolver: ', recipes);
     if (recipes.length == 0) {
       return this.apiService.getAllRecipes();
     }

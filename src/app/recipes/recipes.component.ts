@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-recipes',
@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
   // providers: [RecipeService], -> we declare Global provider in app.module.ts
   // coz we need to avoid the destriction of component when we switch to Ingredients screen
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent {
   constructor() {}
-
-  ngOnInit() {}
 }
