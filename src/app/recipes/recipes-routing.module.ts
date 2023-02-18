@@ -11,29 +11,34 @@ import { RecipesComponent } from './recipes.component';
 
 const routes: Routes = [
   {
-    path: 'recipes',
+    path: '',
     resolve: [RecipeResolverService],
     component: RecipesComponent,
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     children: [
-      { path: 'new', component: RecipeEditComponent, resolve: null },
-      {
-        path: ':id',
-        component: RecipeDetailComponent,
-        // resolve: [RecipeResolverService],
-      },
-      {
-        path: ':id/edit',
-        component: RecipeEditComponent,
-        // resolve: [RecipeResolverService],
-      },
       {
         path: '',
         component: RecipeStartComponent,
-        pathMatch: 'full',
+        children: [
+          { path: 'new', component: RecipeEditComponent, resolve: null },
+          {
+            path: ':id',
+            component: RecipeDetailComponent,
+            // resolve: [RecipeResolverService],
+          },
+          {
+            path: ':id/edit',
+            component: RecipeEditComponent,
+            // resolve: [RecipeResolverService],
+          },
+          // {
+          //   path: '',
+          //   pathMatch: 'full',
+          // },
+          { path: '**', component: Page404Component },
+        ],
       },
-      { path: '**', component: Page404Component },
     ],
   },
 ];

@@ -1,6 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,14 +10,13 @@ import { AuthComponent } from './auth.component';
 @NgModule({
   declarations: [AuthComponent],
   imports: [
-    BrowserModule,
-    // AppRoutingModule,
+    CommonModule,
     NgbModule,
     ReactiveFormsModule,
     // HttpClientModule,
     SharedModule,
-    RouterModule.forChild([{ path: 'auth', component: AuthComponent }]),
+    RouterModule.forChild([{ path: '', component: AuthComponent }]),
   ],
-  exports: [AuthComponent],
+  exports: [AuthComponent, RouterModule],
 })
 export class AuthModule {}
