@@ -6,8 +6,8 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ApiService } from '../shared/api.service';
-import { Recipe } from './recipe-list/recipe.model';
+import { ApiService } from '../../shared/services/api.service';
+import { Recipe } from '../components/recipe-list/recipe.model';
 import { RecipeService } from './recipe.service';
 
 @Injectable({ providedIn: 'root' })

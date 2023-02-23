@@ -3,7 +3,8 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, Subject, Subscription, tap, throwError } from 'rxjs';
 
-import { User } from './user.model';
+import { User } from '../types/user.model';
+
 
 // Error response
 interface Error {

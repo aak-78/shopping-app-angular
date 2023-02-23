@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
-import { AuthService } from '../auth/auth.service';
-import { Recipe } from '../recipes/recipe-list/recipe.model';
-import { RecipeService } from '../recipes/recipe.service';
+import { Recipe } from '../../recipes/components/recipe-list/recipe.model';
+import { RecipeService } from '../../recipes/services/recipe.service';
 
 // RESTApi service to connect with firebase database
 

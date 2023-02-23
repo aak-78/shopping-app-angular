@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AuthComponent } from '../auth/auth.component';
-import { AuthService } from '../auth/auth.service';
-import { ApiService } from '../shared/api.service';
+import { AuthComponent } from '../auth/components/auth-component/auth.component';
+import { AuthService } from '../auth/services/auth.service';
+import { ApiService } from '../shared/services/api.service';
 
 @Component({
   selector: 'app-header',

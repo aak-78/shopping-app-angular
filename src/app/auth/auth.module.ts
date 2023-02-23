@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
-import { AuthComponent } from './auth.component';
+import { AuthComponent } from './components/auth-component/auth.component';
 
 @NgModule({
   declarations: [AuthComponent],

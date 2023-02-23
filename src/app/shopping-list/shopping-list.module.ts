@@ -5,10 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthGuard } from '../auth/authguard.service';
+import { AuthGuard } from '../auth/services/authguard.service';
 import { SharedModule } from '../shared/shared.module';
-import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
-import { ShoppingListComponent } from './shopping-list.component';
+import { ShoppingEditComponent } from './components/shopping-edit/shopping-edit.component';
+import { ShoppingListComponent } from './components/shopping-list-component/shopping-list.component';
 
 @NgModule({
   declarations: [ShoppingListComponent, ShoppingEditComponent],

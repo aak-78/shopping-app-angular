@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { BasicHightlightDirective } from '../directives/basic-hightlight/basic-hightlight.directive';
-import { BetterHightlightDirective } from '../directives/better-hightlight/better-hightlight.directive';
-import { BetterHightlight2Directive } from '../directives/better-hightlight/better-hightlight2.directive';
-import { AlertComponent } from './alert/alert.component';
-import { AlertDirective } from './alert/alert.directive';
-import { DropDownDirective } from './dropdown.directive';
-import { Gear } from './gear/gear.component';
-import { LoadingSpinner } from './loading-spinner/loading-spinner.component';
-import { Page404Component } from './page404/page404.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertDirective } from './components/alert/alert.directive';
+import { Gear } from './components/gear/gear.component';
+import { LoadingSpinner } from './components/loading-spinner/loading-spinner.component';
+import { Page404Component } from './components/page404/page404.component';
+import { BasicHightlightDirective } from './directives/basic-hightlight/basic-hightlight.directive';
+import { BetterHightlightDirective } from './directives/better-hightlight/better-hightlight.directive';
+import { BetterHightlight2Directive } from './directives/better-hightlight/better-hightlight2.directive';
+import { DropDownDirective } from './directives/dropdown.directive';
 
 @NgModule({
   declarations: [

@@ -14,10 +14,10 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
+import { AlertDirective } from 'src/app/shared/components/alert/alert.directive';
 
-import { AlertComponent } from '../shared/alert/alert.component';
-import { AlertDirective } from '../shared/alert/alert.directive';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
