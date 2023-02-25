@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthGuard } from '../auth/services/authguard.service';
 import { SharedModule } from '../shared/shared.module';
@@ -17,7 +16,6 @@ import { ShoppingListComponent } from './components/shopping-list-component/shop
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
     SharedModule,
     RouterModule.forChild([
       {

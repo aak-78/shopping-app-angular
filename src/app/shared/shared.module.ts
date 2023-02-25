@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertDirective } from './components/alert/alert.directive';
@@ -24,7 +23,7 @@ import { DropDownDirective } from './directives/dropdown.directive';
     BetterHightlightDirective,
     BetterHightlight2Directive,
   ],
-  imports: [CommonModule, NgbModule],
+  imports: [CommonModule],
   exports: [
     AlertComponent,
     AlertDirective,
