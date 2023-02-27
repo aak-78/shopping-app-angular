@@ -1,7 +1,7 @@
 <!-- Navbar Bootstrap -->
-<nav class="navbar navbar-expand-md bg-purple-500" data-bs-theme="dark">
+<nav class="navbar navbar-expand-md bg-secondary" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand">Recipe Book</a>
+    <a class="navbar-brand fw-bold">Recipe Book</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -17,7 +17,7 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link fw-bold"
             routerLink="/recipes"
             routerLinkActive="active"
             ariaCurrentWhenActive="page"
@@ -28,7 +28,7 @@
 
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link fw-bold"
             routerLink="/shopping-list"
             routerLinkActive="active"
             ariaCurrentWhenActive="page"
@@ -39,7 +39,7 @@
 
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link dropdown-toggle fw-bold"
             href="#"
             role="button"
             data-bs-toggle="dropdown"
@@ -61,9 +61,9 @@
           </ul>
         </li>
       </ul>
-      <button class="nav-item d-flex btn">
+      <button class="nav-item d-flex btn btn-warning">
         <a
-          class="nav-link bg-indigo-700 text-white rounded-2 py-2 px-3"
+          class="nav-link fw-semibold text-green-700"
           routerLink="/auth"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
@@ -71,7 +71,7 @@
           >Login | Signup</a
         >
         <a
-          class="nav-link bg-indigo-900 text-white rounded-2 py-2 px-3"
+          class="nav-link bg-green-light fw-semibold"
           routerLink="/auth"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"

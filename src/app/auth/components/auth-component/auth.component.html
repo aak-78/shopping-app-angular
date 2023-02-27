@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-12 col-md-6 mx-auto">
-    <h4 class="mb-5 text-center text-primary fw-bold">
+    <h4 class="mb-5 text-center text-black opacity-75 fw-bold">
       Please Login or Signup to enter in Recipe App
     </h4>
     <form action="" [formGroup]="authForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="email" class="form-label text-primary fw-bolder"
+        <label for="email" class="form-label text-black opacity-75 fw-bolder"
           >E-Mail</label
         >
         <input
@@ -13,7 +13,7 @@
           formControlName="email"
           id="email"
           placeholder="email@example.com"
-          class="form-control mb-2 text-primary fw-semibold"
+          class="form-control mb-2 text-black fw-semibold"
           (keyup)="onCheckEmail(getValue($event))"
         />
         <p class="alert-danger alert" *ngIf="emailMessage">
@@ -21,7 +21,7 @@
         </p>
       </div>
       <div class="form-group mt-3">
-        <label for="password" class="form-label text-primary fw-bolder"
+        <label for="password" class="form-label text-black fw-bolder"
           >Password</label
         >
         <input
@@ -49,7 +49,7 @@
       </div> -->
       <div class="mt-5" *ngIf="!isLoading">
         <button
-          class="btn btn-primary"
+          class="btn btn-warning"
           type="submit"
           [disabled]="!authForm.valid || !emailNameIsValid"
           *ngIf="!isLoginMode"
@@ -57,7 +57,7 @@
           Sign Up
         </button>
         <button
-          class="btn btn-primary"
+          class="btn btn-warning fw-semibold"
           type="submit"
           [disabled]="authForm.invalid"
           *ngIf="isLoginMode"
@@ -65,7 +65,11 @@
           Login
         </button>
         |
-        <button class="btn btn-primary" type="button" (click)="onChangeMode()">
+        <button
+          class="btn btn-warning fw-semibold"
+          type="button"
+          (click)="onChangeMode()"
+        >
           Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
         </button>
       </div>

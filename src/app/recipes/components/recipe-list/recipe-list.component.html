@@ -1,17 +1,18 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-outline-primary" (click)="onNewRecipe()">
+    <button class="btn btn-warning fw-bolder" (click)="onNewRecipe()">
       New recipe
     </button>
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 list-group">
-    <app-recipe-item
+  <div class="col-xs-12 list-group list-group-flush">
+    <div
+      class="list-group-item"
+      data-bs-theme="dark"
       *ngFor="let recipe of recipes; let i = index"
-      [recipeItem]="recipe"
-      [index]="i"
     >
-    </app-recipe-item>
+      <app-recipe-item [recipeItem]="recipe" [index]="i"></app-recipe-item>
+    </div>
   </div>
 </div>
