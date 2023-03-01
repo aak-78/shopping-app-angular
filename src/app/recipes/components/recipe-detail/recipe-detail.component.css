@@ -1,7 +1,7 @@
-img {
-  max-width: 200px;
-  max-height: 200px;
-  margin: 10px 0;
-  border-radius: 8px;
-}
 
+img{
+  /* max-width: clamp(15rem, 20vw,100%); */
+  max-width: 100%;
+  /* max-height: clamp(15rem, 20vw,300px); */
+  border-radius: 0.25rem;
+}

@@ -5,3 +5,8 @@
   background-color: #0d6efd;
   color: white;
 } */
+
+img{
+  max-width: clamp(10rem, 15vw,20rem);
+  max-height: clamp(10rem, 15vw,20rem);
+}

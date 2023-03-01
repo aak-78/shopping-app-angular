@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/services/authguard.service';
 import { Page404Component } from '../shared/components/page404/page404.component';
 import { RecipesComponent } from './components/recipe-component/recipes.component';
-import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.component';
+import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './components/recipe-start/recipe-start.component';
 import { RecipeResolverService } from './services/recipe-resolver.service';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
           { path: 'new', component: RecipeEditComponent, resolve: null },
           {
             path: ':id',
-            component: RecipeDetailComponent,
+            component: RecipeListComponent,
             // resolve: [RecipeResolverService],
           },
           {
@@ -34,7 +34,7 @@ const routes: Routes = [
           },
           {
             path: '',
-            component: RecipeStartComponent,
+            component: RecipeListComponent,
             // resolve: [RecipeResolverService],
           },
           // {

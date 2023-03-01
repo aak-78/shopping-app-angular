@@ -10,4 +10,6 @@ import { Recipe } from '../recipe-list/recipe.model';
 export class RecipeItemComponent {
   @Input() recipeItem: Recipe;
   @Input() index: number;
+
+
 }

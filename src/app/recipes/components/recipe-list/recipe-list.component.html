@@ -1,18 +1,25 @@
-<div class="row">
-  <div class="col-xs-12">
-    <button class="btn btn-warning fw-bolder" (click)="onNewRecipe()">
-      New recipe
-    </button>
-  </div>
+<div class="col-xs-12 top-buttons">
+  <button class="btn btn-warning fw-bolder m-1" (click)="onNewRecipe()">
+    New
+  </button>
 </div>
-<div class="row">
-  <div class="col-xs-12 list-group list-group-flush">
-    <div
-      class="list-group-item"
-      data-bs-theme="dark"
-      *ngFor="let recipe of recipes; let i = index"
-    >
-      <app-recipe-item [recipeItem]="recipe" [index]="i"></app-recipe-item>
+<div class="list-group list-group-flush">
+  <div
+    class="list-group-item"
+    data-bs-theme="dark"
+    *ngFor="let recipe of recipes; let i = index"
+  >
+    <div class="row">
+      <div *ngIf="id !== i; then thenBlock; else elseBlock"></div>
+      <ng-template #thenBlock>
+        <div class="col-12 col-md-10 offset-1">
+          <app-recipe-item [recipeItem]="recipe" [index]="i"> </app-recipe-item>
+        </div>
+      </ng-template>
+      <ng-template #elseBlock></ng-template>
+      <div *ngIf="id === i" class="col-12 col-md-10 offset-1">
+        <app-recipe-detail></app-recipe-detail>
+      </div>
     </div>
   </div>
 </div>

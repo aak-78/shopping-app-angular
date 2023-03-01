@@ -1,19 +1,22 @@
+
 <a
-  class="text-black"
-  style="cursor: pointer"
-  [routerLink]="[index]"
-  routerLinkActive="active"
+class="text-black"
+style="cursor: pointer"
+[routerLink]="['/recipes',index]"
+routerLinkActive="active"
 >
-  <div class="float-start">
+<div class="d-flex justify-content-between">
+  <div class="">
     <h4 class="list-group-item-heading text-black">{{ recipeItem.name }}</h4>
     <p class="list-group-item-text text-black">{{ recipeItem.description }}</p>
   </div>
-  <span class="float-end">
+  <span class="">
     <img
-      [src]="recipeItem.imagePath"
+    [src]="recipeItem.imagePath"
       alt="{{ recipeItem.name }}"
-      style="max-height: 100px"
       class="img-fluid rounded"
-    />
-  </span>
-</a>
+      />
+    </span>
+  </div>
+</  a>
+  <ng-content></ng-content>
